@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Eye, EyeOff, Copy, Trash2, Plus } from 'lucide-react';
+import { useState } from 'react';
+import { Eye, EyeOff, Copy, Trash2 } from 'lucide-react';
 import axios from 'axios';
 import bs58 from "bs58";
 import { generateMnemonic } from 'bip39';
@@ -7,7 +7,7 @@ import nacl from 'tweetnacl';
 import { Keypair } from '@solana/web3.js';
 import { Wallet, HDNodeWallet } from 'ethers';
 import { mnemonicToSeedSync, mnemonicToSeed } from 'bip39';
-import { create } from 'domain';
+import { derivePath } from 'ed25519-hd-key';
 
 interface wallet {
   id: number;
@@ -16,10 +16,11 @@ interface wallet {
   balance: number | null;
 }
 
-type WalletGeneratorProps = {
-    type: "Solana" | "Ethereum"; // Wallet type: Solana or Ethereum
-    fetchBalance?: (publicKey: string) => void; // Optional custom function for fetching balance
-  };
+// type WalletGeneratorProps = {
+//     type: "Solana" | "Ethereum"; // Wallet type: Solana or Ethereum
+//     fetchBalance?: (publicKey: string) => void; // Optional custom function for fetching balance
+//   };
+
 
 export function WalletGenerator({ type }: { type: string }) {
   const [mnemonic, setMnemonic] = useState<string>("");
@@ -80,7 +81,7 @@ export function WalletGenerator({ type }: { type: string }) {
     if (type === "Solana") {
       const seed = mnemonicToSeedSync(mnemonic);
       const path = `m/44'/501'/${wallets.length}'/0'`;
-      const derivedSeed = seed.slice(0, 32);
+      const derivedSeed = derivePath(path, seed.toString("hex")).key;
       const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
       const keypair = Keypair.fromSecretKey(secret);
 
@@ -127,11 +128,11 @@ export function WalletGenerator({ type }: { type: string }) {
   };
 
   // Delete wallet
-  const deleteWallet = (walletId: number) => {
-    setWallets((prevWallets) =>
-      prevWallets.filter((wallet) => wallet.id !== walletId)
-    );
-  };
+  // const deleteWallet = (walletId: number) => {
+  //   setWallets((prevWallets) =>
+  //     prevWallets.filter((wallet) => wallet.id !== walletId)
+  //   );
+  // };
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
@@ -143,7 +144,7 @@ export function WalletGenerator({ type }: { type: string }) {
             ? "Solana Wallet Generator"
             : "Ethereum Wallet Generator"}
         </h1>
-        <p className="text-gray-400">Save your Secret Phrase safely.</p>
+        <p className="text-gray-400">Save your mnemonic safely.</p>
 
         {!mnemonic ? (
           <div className="space-y-4">

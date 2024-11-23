@@ -1,43 +1,4 @@
-import Image from "next/image";
-import localFont from "next/font/local";
-import { useState } from "react";
-import { generateMnemonic } from "bip39";
-import EthWallet from "@/components/ethWallet";
-import SolanaWallet from "@/components/solWallet";
 import { useRouter } from "next/router";
-
-// export default function Home() {
-  // const [mnemonic, setMnemonic] = useState("");
-
-  // return(
-  //   <>
-  //   <h1 style={{ textAlign: "center" }}>Wallet Creator</h1>
-
-  //   <br/>
-  //   <br/> 
-    
-  //   <button onClick={async function() {
-  //     const mnemonic = await generateMnemonic();
-  //     setMnemonic(mnemonic);
-  //     console.log(mnemonic);
-  //   }}>
-  //     Create Seed Phrase
-  //   </button>
-  //  <br/>
-  //   <input type="text" value={mnemonic}   style={{ backgroundColor: 'white', color: 'black', padding: '10px', border: '2px solid gray', borderRadius: '50px', width: '40%' }}
-  //   ></input>    
-
-  //   <br/>
-  //   <br/><br/>
-    
-    
-  //   <EthWallet mnemonic={mnemonic} />
-  
-  //   <SolanaWallet mnemonic={mnemonic} />
-  //   </>
-  // )
-
-
 
 export default function Home() {
   const router = useRouter();
