@@ -8,6 +8,7 @@ import { Keypair } from '@solana/web3.js';
 import { Wallet, HDNodeWallet } from 'ethers';
 import { mnemonicToSeedSync, mnemonicToSeed } from 'bip39';
 import { derivePath } from 'ed25519-hd-key';
+import Link from 'next/link';
 
 interface wallet {
   id: number;
@@ -297,11 +298,11 @@ export function WalletGenerator({ type }: { type: string }) {
     <div className="min-h-screen bg-black text-white p-4 sm:p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
         <section className="space-y-4">
-          <h6 className="text-1xl sm:text-3xl md:text-1xl font-bold">
-            {type === "Solana"
-              ? "BlockSafe"
-              : "BlockSafe"}
-          </h6>
+        {/* <h1 className="text-2xl font-bold"> BlockSafe</h1>
+         */}
+          <h1 className="text-2xl font-bold">
+      <Link href="/">BlockSafe</Link>
+    </h1>
           <p className="text-gray-400">Save your mnemonic safely.</p>
 
           {!mnemonic ? (
