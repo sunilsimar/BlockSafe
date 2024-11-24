@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -8,7 +9,9 @@ export default function Home() {
       {/* Header */}
       <header className="container mx-auto px-4 py-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold"> BlockSafe</h1>
+          <h1 className="text-2xl font-bold">
+          <Link href="/">BlockSafe</Link>
+          </h1>
           <nav>
             {/* Add navigation items here if needed */}
           </nav>
@@ -55,7 +58,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 mt-12 border-t border-gray-800">
+      {/* <footer className="container mx-auto px-4 py-8 mt-12 border-t border-gray-800">
         <div className="flex justify-between items-center">
           <p className="text-sm text-gray-500">
             © 2024 Wallet Creator. All rights reserved.
@@ -64,7 +67,18 @@ export default function Home() {
             Developed by <a href="https://sunilsimar.me/" className="text-blue-400 hover:underline">Sunil</a>
           </p>
         </div>
-      </footer>
+      </footer> */}
+
+<footer className="container mx-auto px-4 py-8 mt-12 border-t border-gray-800">
+  <div className="flex flex-col md:flex-row justify-between items-center">
+    <p className="text-sm text-white-500 mb-4 md:mb-0">
+      Developed by <a href="https://sunilsimar.me/" className="text-blue-400 hover:underline">Sunil</a>
+    </p>
+    <p className="text-sm text-gray-500">
+      © 2024 Wallet Creator. All rights reserved.
+    </p>
+  </div>
+</footer>
     </div>
   );
 }
