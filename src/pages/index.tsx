@@ -8,7 +8,7 @@ export default function Home() {
       {/* Header */}
       <header className="container mx-auto px-4 py-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Wallet Creator</h1>
+          <h1 className="text-2xl font-bold"> BlockSafe</h1>
           <nav>
             {/* Add navigation items here if needed */}
           </nav>

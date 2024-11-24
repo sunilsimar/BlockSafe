@@ -134,85 +134,242 @@ export function WalletGenerator({ type }: { type: string }) {
   //   );
   // };
 
+  // return (
+  //   <div className="min-h-screen bg-black text-white p-8">
+  //     <div className="max-w-4xl mx-auto space-y-8">
+
+  //     <section className="space-y-4">
+  //       <h1 className="text-5xl font-bold">
+  //         {type === "Solana"
+  //           ? "Solana Wallet Generator"
+  //           : "Ethereum Wallet Generator"}
+  //       </h1>
+  //       <p className="text-gray-400">Save your mnemonic safely.</p>
+
+  //       {!mnemonic ? (
+  //         <div className="space-y-4">
+  //           <input
+  //             type="text"
+  //             placeholder="Enter your mnemonic or generate one"
+  //             value={mnemonic}
+  //             onChange={(e) => setMnemonic(e.target.value)}
+  //             className="bg-gray-900 border-gray-800 text-white p-2 rounded-md w-full"
+  //           />
+  //           <button
+  //             onClick={createMnemonic}
+  //             className="bg-white text-black hover:bg-gray-200 px-4 py-2 rounded-md"
+  //           >
+  //             Generate Mnemonic
+  //           </button>
+  //         </div>
+  //       ) : (
+  //         <>
+  //           <button
+  //             onClick={toggleMnemonicVisibility}
+  //             className="bg-gray-700 text-white px-4 py-2 rounded-md"
+  //           >
+  //             {showMnemonic ? "Your Secret Phrase" : "Your Secret Phrase"}
+  //           </button>
+  //           {showMnemonic && (
+  //             <div
+  //               className="mt-8 p-6 bg-gray-900 rounded-lg space-y-2 cursor-pointer"
+  //               onClick={() => {
+  //                 navigator.clipboard.writeText(mnemonic);
+  //                 setCopied(true);
+  //                 setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 seconds
+  //               }}
+  //             >
+  //               <p className="grid grid-cols-4 gap-2">
+  //                 {mnemonic.split(" ").map((word, index) => (
+  //                   <span
+  //                     key={index}
+  //                     className="bg-gray-800 p-2 rounded-md text-sm text-white text-center"
+  //                   >
+  //                     {word}
+  //                   </span>
+  //                 ))}
+  //               </p>
+  //               <p className="text-sm text-gray-500 text-center">
+  //                 {copied ? "Copied!" : "Click to copy mnemonic"}
+  //               </p>
+  //             </div>
+  //           )}
+  //         </>
+  //       )}
+  //     </section>
+
+  //       {/* Wallet Section */}
+  //       {mnemonic && (
+  //         <section className="space-y-4">
+  //           <div className="flex justify-between items-center">
+  //             <h2 className="text-3xl font-bold">{type} Wallet</h2>
+  //             <div className="flex space-x-4">
+  //               <button
+  //                 onClick={() => generateWallet(type)}
+  //                 className="bg-white text-black text-sm font-medium py-1 px-2 rounded-md hover:bg-gray-200 transition-all duration-200 border border-gray-300"
+  //               >
+  //                 Add Wallet
+  //               </button>
+  //               <button
+  //                 onClick={clearWallets}
+  //                 className="bg-red-700 text-white text-sm font-medium py-2 px-6 rounded-md hover:bg-red-600 transition-all duration-200 border border-red-900"
+  //               >
+  //                 Clear Wallets
+  //               </button>
+  //             </div>
+  //           </div>
+  //           <div className="space-y-4">
+  //             {wallets.map((wallet) => (
+  //               <div
+  //                 key={wallet.id}
+  //                 className="bg-gray-900 p-6 rounded-lg space-y-4"
+  //               >
+  //                 <div className="flex items-center justify-between">
+  //                   <h3 className="text-xl font-semibold">
+  //                     Wallet {wallet.id}
+  //                   </h3>
+  //                   <button
+  //                     onClick={() =>
+  //                       setWallets((prevWallets) =>
+  //                         prevWallets.filter((w) => w.id !== wallet.id)
+  //                       )
+  //                     }
+  //                     className="bg-red-600 hover:bg-red-500 p-2 rounded"
+  //                   >
+  //                     <Trash2 className="w-4 h-4" />
+  //                   </button>
+  //                 </div>
+  //                 <div className="space-y-2">
+  //                   <p className="text-gray-400">Public Key</p>
+  //                   <div className="flex items-center space-x-2">
+  //                     <code className="bg-gray-800 p-2 rounded flex-1 font-mono">
+  //                       {wallet.publicKey}
+  //                     </code>
+  //                     <button
+  //                       onClick={() => copyToClipboard(wallet.publicKey)}
+  //                     >
+  //                       <Copy className="w-4 h-4" />
+  //                     </button>
+  //                   </div>
+  //                 </div>
+  //                 <div className="space-y-2">
+  //                   <p className="text-gray-400">Private Key</p>
+  //                   <div className="flex items-center space-x-2">
+  //                     <code className="bg-gray-800 p-2 rounded flex-1 font-mono">
+  //                       {privateKeyVisibility[wallet.id]
+  //                         ? wallet.privateKey
+  //                         : "•".repeat(64)}
+  //                     </code>
+  //                     <button onClick={() => togglePrivateKeyVisibility(wallet.id)}>
+  //                       {privateKeyVisibility[wallet.id] ? (
+  //                         <EyeOff className="w-4 h-4" />
+  //                       ) : (
+  //                         <Eye className="w-4 h-4" />
+  //                       )}
+  //                     </button>
+  //                   </div>
+  //                 </div>
+  //                 {type === "Solana" && (
+  //                   <>
+  //                     <button
+  //                       onClick={() => getBalance(wallet.publicKey)}
+  //                       className="bg-blue-600 text-white text-sm font-medium py-1 px-2 rounded-md shadow-md hover:bg-blue-500 transition-all duration-200"
+  //                     >
+  //                       Check Balance
+  //                     </button>
+  //                     {wallet.balance != null && (
+  //                       <p className="text-gray-400 mt-2">
+  //                       Balance: {`${wallet.balance} SOL`}
+  //                     </p>
+  //                     )}
+  //                   </>
+  //                 )}
+  //               </div>
+  //             ))}
+  //           </div>
+  //         </section>
+  //       )}
+  //     </div>
+  //   </div>
+  // );
+
   return (
-    <div className="min-h-screen bg-black text-white p-8">
+    <div className="min-h-screen bg-black text-white p-4 sm:p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
+        <section className="space-y-4">
+          <h6 className="text-1xl sm:text-3xl md:text-1xl font-bold">
+            {type === "Solana"
+              ? "BlockSafe"
+              : "BlockSafe"}
+          </h6>
+          <p className="text-gray-400">Save your mnemonic safely.</p>
 
-      <section className="space-y-4">
-        <h1 className="text-5xl font-bold">
-          {type === "Solana"
-            ? "Solana Wallet Generator"
-            : "Ethereum Wallet Generator"}
-        </h1>
-        <p className="text-gray-400">Save your mnemonic safely.</p>
-
-        {!mnemonic ? (
-          <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="Enter your mnemonic or generate one"
-              value={mnemonic}
-              onChange={(e) => setMnemonic(e.target.value)}
-              className="bg-gray-900 border-gray-800 text-white p-2 rounded-md w-full"
-            />
-            <button
-              onClick={createMnemonic}
-              className="bg-white text-black hover:bg-gray-200 px-4 py-2 rounded-md"
-            >
-              Generate Mnemonic
-            </button>
-          </div>
-        ) : (
-          <>
-            <button
-              onClick={toggleMnemonicVisibility}
-              className="bg-gray-700 text-white px-4 py-2 rounded-md"
-            >
-              {showMnemonic ? "Your Secret Phrase" : "Your Secret Phrase"}
-            </button>
-            {showMnemonic && (
-              <div
-                className="mt-8 p-6 bg-gray-900 rounded-lg space-y-2 cursor-pointer"
-                onClick={() => {
-                  navigator.clipboard.writeText(mnemonic);
-                  setCopied(true);
-                  setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 seconds
-                }}
+          {!mnemonic ? (
+            <div className="space-y-4">
+              <input
+                type="text"
+                placeholder="Enter your mnemonic or generate one"
+                value={mnemonic}
+                onChange={(e) => setMnemonic(e.target.value)}
+                className="bg-gray-900 border-gray-800 text-white p-2 rounded-md w-full"
+              />
+              <button
+                onClick={createMnemonic}
+                className="bg-white text-black hover:bg-gray-200 px-4 py-2 rounded-md w-full sm:w-auto"
               >
-                <p className="grid grid-cols-4 gap-2">
-                  {mnemonic.split(" ").map((word, index) => (
-                    <span
-                      key={index}
-                      className="bg-gray-800 p-2 rounded-md text-sm text-white text-center"
-                    >
-                      {word}
-                    </span>
-                  ))}
-                </p>
-                <p className="text-sm text-gray-500 text-center">
-                  {copied ? "Copied!" : "Click to copy mnemonic"}
-                </p>
-              </div>
-            )}
-          </>
-        )}
-      </section>
+                Generate Mnemonic
+              </button>
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={toggleMnemonicVisibility}
+                className="bg-gray-700 text-white px-4 py-2 rounded-md w-full sm:w-auto"
+              >
+                {showMnemonic ? "Hide Secret Phrase" : "Show Secret Phrase"}
+              </button>
+              {showMnemonic && (
+                <div
+                  className="mt-8 p-4 sm:p-6 bg-gray-900 rounded-lg space-y-2 cursor-pointer"
+                  onClick={() => {
+                    navigator.clipboard.writeText(mnemonic);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                >
+                  <p className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                    {mnemonic.split(" ").map((word, index) => (
+                      <span
+                        key={index}
+                        className="bg-gray-800 p-2 rounded-md text-sm text-white text-center"
+                      >
+                        {word}
+                      </span>
+                    ))}
+                  </p>
+                  <p className="text-sm text-gray-500 text-center">
+                    {copied ? "Copied!" : "Click to copy mnemonic"}
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+        </section>
 
-        {/* Wallet Section */}
         {mnemonic && (
           <section className="space-y-4">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
               <h2 className="text-3xl font-bold">{type} Wallet</h2>
-              <div className="flex space-x-4">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
                 <button
                   onClick={() => generateWallet(type)}
-                  className="bg-white text-black text-sm font-medium py-1 px-2 rounded-md hover:bg-gray-200 transition-all duration-200 border border-gray-300"
+                  className="bg-white text-black text-sm font-medium py-1 px-2 rounded-md hover:bg-gray-200 transition-all duration-200 border border-gray-300 w-full sm:w-auto"
                 >
                   Add Wallet
                 </button>
                 <button
                   onClick={clearWallets}
-                  className="bg-red-700 text-white text-sm font-medium py-2 px-6 rounded-md hover:bg-red-600 transition-all duration-200 border border-red-900"
+                  className="bg-red-700 text-white text-sm font-medium py-2 px-6 rounded-md hover:bg-red-600 transition-all duration-200 border border-red-900 w-full sm:w-auto"
                 >
                   Clear Wallets
                 </button>
@@ -222,7 +379,7 @@ export function WalletGenerator({ type }: { type: string }) {
               {wallets.map((wallet) => (
                 <div
                   key={wallet.id}
-                  className="bg-gray-900 p-6 rounded-lg space-y-4"
+                  className="bg-gray-900 p-4 sm:p-6 rounded-lg space-y-4"
                 >
                   <div className="flex items-center justify-between">
                     <h3 className="text-xl font-semibold">
@@ -242,7 +399,7 @@ export function WalletGenerator({ type }: { type: string }) {
                   <div className="space-y-2">
                     <p className="text-gray-400">Public Key</p>
                     <div className="flex items-center space-x-2">
-                      <code className="bg-gray-800 p-2 rounded flex-1 font-mono">
+                      <code className="bg-gray-800 p-2 rounded flex-1 font-mono text-xs sm:text-sm break-all">
                         {wallet.publicKey}
                       </code>
                       <button
@@ -255,7 +412,7 @@ export function WalletGenerator({ type }: { type: string }) {
                   <div className="space-y-2">
                     <p className="text-gray-400">Private Key</p>
                     <div className="flex items-center space-x-2">
-                      <code className="bg-gray-800 p-2 rounded flex-1 font-mono">
+                      <code className="bg-gray-800 p-2 rounded flex-1 font-mono text-xs sm:text-sm break-all">
                         {privateKeyVisibility[wallet.id]
                           ? wallet.privateKey
                           : "•".repeat(64)}
@@ -273,14 +430,14 @@ export function WalletGenerator({ type }: { type: string }) {
                     <>
                       <button
                         onClick={() => getBalance(wallet.publicKey)}
-                        className="bg-blue-600 text-white text-sm font-medium py-1 px-2 rounded-md shadow-md hover:bg-blue-500 transition-all duration-200"
+                        className="bg-blue-600 text-white text-sm font-medium py-1 px-2 rounded-md shadow-md hover:bg-blue-500 transition-all duration-200 w-full sm:w-auto"
                       >
                         Check Balance
                       </button>
                       {wallet.balance != null && (
                         <p className="text-gray-400 mt-2">
-                        Balance: {`${wallet.balance} SOL`}
-                      </p>
+                          Balance: {`${wallet.balance} SOL`}
+                        </p>
                       )}
                     </>
                   )}
